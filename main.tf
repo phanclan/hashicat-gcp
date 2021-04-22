@@ -109,3 +109,21 @@ resource "null_resource" "configure-cat-app" {
     }
   }
 }
+
+
+terraform {
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "pphan"
+
+    workspaces {
+      name = "hashicat-gcp"
+    }
+  }
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "3.65.0"
+    }
+  }
+}
