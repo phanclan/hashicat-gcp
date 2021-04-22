@@ -1,11 +1,11 @@
 provider "google" {
-  version = "~> 2.0"  
+  version = "~> 2.0"
   project = var.project
   region  = var.region
 }
 
 resource "google_compute_network" "hashicat" {
-  name                    = "${var.prefix}-vpc"
+  name                    = "${var.prefix}-vpc-${var.region}"
   auto_create_subnetworks = false
 }
 
@@ -58,6 +58,10 @@ resource "google_compute_network" "hashicat" {
 
 #   tags = ["http-server"]
 
+#    labels = {
+#       name = "hashicat"
+#    }
+
 # }
 
 # resource "null_resource" "configure-cat-app" {
@@ -84,7 +88,8 @@ resource "google_compute_network" "hashicat" {
 
 #   provisioner "remote-exec" {
 #     inline = [
-#       "sudo add-apt-repository universe",
+#       "sudo apt -y update",
+#       "sleep 15",
 #       "sudo apt -y update",
 #       "sudo apt -y install apache2",
 #       "sudo systemctl start apache2",
